@@ -36,15 +36,14 @@ def bsearch(array, target)
   sec_half = array[mid_idx+1..-1]
 
   case target <=> array[mid_idx]
-    
+
   when -1
     bsearch(first_half, target)
   when 0
     return mid_idx
   when 1
     sec_half_bsearch = bsearch(sec_half, target)
-    return nil if sec_half_bsearch.nil?
-    mid_idx + 1 + sec_half_bsearch
+    sec_half_bsearch.nil? ? nil : mid_idx + 1 + sec_half_bsearch
   else
     return nil
   end
