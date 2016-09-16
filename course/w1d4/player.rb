@@ -16,6 +16,7 @@ class Player
 
   def prompt
     puts "Please enter an operation and position: (r 3,4)"
+    puts "Enter 'r' to reveal a tile, and 'f' to flag a tile"
     print '>'
   end
 
