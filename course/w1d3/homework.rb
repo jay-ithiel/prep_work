@@ -33,9 +33,7 @@ end
 # Let's write a method that will solve Gamma Function recursively. The Gamma Function is defined Γ(n) = (n-1)!.
 
 def gamma_fnc(n)
-  return nil if n == 0
-  return n if n <= 1
-  (n -= 1) * gamma_fnc(n)
+
 end
 
 # Test Cases
@@ -49,8 +47,7 @@ end
 #sum of the integers.
 
 def sum_recur(array)
-  return array.first if array.length <= 1
-  array.first + sum_recur(array[1..-1])
+
 end
 
 # p sum_recur([1,2,3,4,5])
@@ -60,7 +57,7 @@ end
 #whether or not the array contains a specific value.
 
 def includes?(array, target)
-  
+
 end
 
 

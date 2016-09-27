@@ -3,7 +3,8 @@
 #
 # Warmup
 #
-# Write a recursive method, range, that takes a start and an end and returns an array of all numbers between. If end < start, you can return the empty array.
+# Write a recursive method, range, that takes a start and an end and returns an
+# array of all numbers between. If end < start, you can return the empty array.
 # Write both a recursive and iterative version of sum of an array.
 
 def range(start_number, last_number)
@@ -60,7 +61,8 @@ end
 #
 # If the n == 256, about how many nested recursive steps will we run in the first case?
 #
-# How deep will we need to recurse for the second? Keep in mind that the first reduces the exponent by one for each recursion, while the second reduces it by half.
+# How deep will we need to recurse for the second? Keep in mind that the first r
+# educes the exponent by one for each recursion, while the second reduces it by half.
 #
 # In addition to testing your methods by running the code, try the following exercise:
 #
@@ -340,17 +342,23 @@ def make_better_change(target, coins)
   return [] if target <= 0
   return nil if coins.none? { |coin| coin < target }
   best_result = nil
+
   coins.each do |coin|
     if target >= coin
       remainder = target - coin
-      current_result = [coin]
+      current_change = [coin]
       best_change_remainder = make_better_change(remainder, coins)
+      
       next if best_change_remainder.nil?
-      current_result += best_change_remainder
-      best_result = current_result if (best_result.nil? ||
-      current_result.length < best_result.length)
+      current_change += best_change_remainder
+
+      if (best_result.nil? || current_change.length < best_result.length)
+        best_result = current_change
+      end
+
     end
   end
+
   best_result
 end
 

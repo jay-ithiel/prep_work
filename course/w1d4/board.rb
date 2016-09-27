@@ -35,7 +35,7 @@ class Board
   end
 
   def render_full
-    puts "  #{(0...size).to_a.map { |n| n.to_s.colorize(:yellow) }.join(" ")}"#{}"  #{(0...size).to_a.join(" ")}"
+    puts "  #{(0...size).to_a.map { |n| n.to_s.colorize(:yellow) }.join(" ")}"
     @board.each_with_index do |row, i|
       print "#{i} ".colorize(:yellow)#{}"#{i} "
       values = []
@@ -43,8 +43,8 @@ class Board
         values << (tile.is_0? ? ' ' : tile.value)
       end
       puts color(values).join(' ')
-      # puts values.join(' ')
     end
+    
   end
 
   def color(values)
