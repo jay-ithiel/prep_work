@@ -106,7 +106,8 @@ def andrews_films_and_leads
   # Andrews' played in.
   execute(<<-SQL)
   SELECT
-    new_table.movies_title, actors.name
+    new_table.movies_title,
+    actors.name
   FROM
     (SELECT
       movies.id AS movies_id, movies.title as movies_title
