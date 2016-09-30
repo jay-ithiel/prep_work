@@ -110,7 +110,8 @@ def andrews_films_and_leads
     actors.name
   FROM
     (SELECT
-      movies.id AS movies_id, movies.title as movies_title
+      movies.id AS movies_id,
+      movies.title as movies_title
     FROM
       movies
       JOIN castings ON castings.movie_id = movies.id
