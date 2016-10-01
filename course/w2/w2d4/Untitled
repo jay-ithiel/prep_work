@@ -1,0 +1,40 @@
+Next, we're going to implement a queue again, but with a twist: rather
+ than use an Array, we will implement it using our MyStack class under the hood.
+
+Before you start to code this, sit down and talk to your partner about
+how you might implement this. You should not modify your MyStack class,
+but use the interface it provides to implement a queue. When you're ready
+, implement this StackQueue class with enqueue, dequeue, size, and empty?
+ methods.
+
+Hint: You will want to use more than one instance of MyStack.
+
+Hint 2: What if you always pushed onto one stack, and always popped from
+the other? How will these two stacks interact?
+
+Hint 3: Think about how a slinky walks down stairs...
+
+Ask your TA if you get stuck!
+
+MaxStack and MinMaxStack
+
+Moving back to our MyStack class, let's modify it so that we always know
+the maximum value in the stack. We could write a max method that calls
+@store.max. However, this requires us to iterate over every item in the
+ @store array, which gives us a time complexity of O(n). This isn't good
+  enough for us; we want to be able to return the max in constant time
+  (O(1)). If we can't iterate over @store, how else could we modify the
+  stack to get this functionality?
+
+Once you have max implemented, it should be easy to add a min method. Do so.
+
+Hint: We could store some metadata with the value of each element. Think
+about how to do this and what information to store.
+
+MinMaxStackQueue
+
+Now it's time to bring it all together. Take the techniques you've learned
+(and the classes you've implemented) to implement a MinMaxStackQueue.
+The goal at the end of this is to have enqueue, dequeue, max, and min 
+methods, all of which run in constant time. Once we have this, we'll be
+well-equipped to produce an optimized solution to the Windowed Max Range problem.
