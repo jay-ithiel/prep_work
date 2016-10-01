@@ -93,28 +93,16 @@ end
 # star role. Order by movie title.
 def more_cage_please
   MovieDatabase.execute(<<-SQL)
-    -- SELECT
-    --   cage_movies.movie_title
-    -- FROM
-    --   (
-    --     SELECT
-    --       movies.title AS movie_title,
-    --       movies.id AS movie_id,
-    --       actors.name AS actor_name
-    --     FROM
-    --       movies
-    --       JOIN castings ON castings.movie_id = movies.id
-    --       JOIN actors ON castings.actor_id = actors.id
-    --     WHERE
-    --       actors.name = 'Nicolas Cage'
-    --   ) AS cage_movies
-    --
-    --   JOIN castings ON castings.movie_id = cage_movies.movie_id
-    --   JOIN actors ON castings.actor_id = actors.id
-    -- GROUP BY
-    --   castings.ord = 1
-    --   HAVING
-    --     cage_movies.actor_name != 'Nicolas Cage'
+    SELECT
+      movies.title
+    FROM
+      movies
+      JOIN castings ON castings.movie_id = movies.id
+      JOIN actors ON castings.actor_id = actors.id
+    WHERE
+      actors.name = 'Nicolas Cage' AND castings.ord != 1
+    ORDER BY
+      movies.title
   SQL
 end
 
@@ -146,11 +134,9 @@ def count_bad_actors
       COUNT(*) AS num_bad_actors
     FROM
       actors
-      JOIN castings ON castings.actor_id = actors.id
-      LEFT OUTER JOIN movies ON castings.movie_id = movies.id
+      LEFT OUTER JOIN castings ON castings.actor_id = actors.id
     WHERE
-      castings.movie_id = null
-
+      castings.movie_id IS NULL
   SQL
 end
 
