@@ -35,6 +35,20 @@ class Question
     Question.new(question)
   end
 
+  def self.find_by_author_id(author_id)
+    question = QuestionsDBConnection.instance.execute(<<-SQL, author_id)
+      SELECT
+        *
+      FROM
+        questions
+      WHERE
+        questions.author_id = ?
+    SQL
+    raise 'no matching record' if question.empty?
+
+    Question.new(question)
+  end
+
   attr_reader :id
   attr_accessor :title, :body, :author_id
 

@@ -16,6 +16,34 @@ class Reply
     Reply.new(reply)
   end
 
+  def self.find_by_user_id(user_id)
+    reply = QuestionDBConnection.instance.execute(<<-SQL, user_id)
+      SELECT
+        *
+      FROM
+        replies
+      WHERE
+        replies.author_id = user_id
+    SQL
+    raise 'no matching records' if reply.empty?
+
+    Reply.new(reply)
+  end
+
+  def self.find_by_question_id(question_id)
+    replies = QuestionDBConnection.instance.execute(<<-SQL, question_id)
+      SELECT
+        *
+      FROM
+        replies
+      WHERE
+        replies.question_id = ?
+    SQL
+    raise 'no matching records' if replies.empty?
+
+    replies.map { |reply| Reply.new(reply) }
+  end
+
   attr_reader :id
   attr_accessor :body, :question_id, :parent_id, :author_id
 
