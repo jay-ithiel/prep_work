@@ -18,23 +18,18 @@ def num_stops
   # How many stops are in the database?
   execute(<<-SQL)
   SELECT
-
+    count(*)
   FROM
-
-  WHERE
-
+    stops
   SQL
 end
 
 def craiglockhart_id
   # Find the id value for the stop 'Craiglockhart'.
   execute(<<-SQL)
-  SELECT
-
-  FROM
-
-  WHERE
-
+    select id
+    from stops
+    where stops.name = 'Craiglockhart'
   SQL
 end
 
@@ -42,11 +37,12 @@ def lrt_stops
   # Give the id and the name for the stops on the '4' 'LRT' service.
   execute(<<-SQL)
   SELECT
-
-  FROM
-
+    stops.name,
+    stops.id
+  FROM stops
+    join routes on routes.stop_id = stops.id
   WHERE
-
+    routes.num = '4' and routes.company = 'LRT'
   SQL
 end
 
