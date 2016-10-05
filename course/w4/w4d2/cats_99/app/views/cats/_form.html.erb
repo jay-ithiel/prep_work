@@ -1,0 +1,31 @@
+<% action_url = (action == :new) ? cats_url : cat_url(cat) %>
+
+<form action="<%= action_url %>" method="post">
+  <% if action == :edit %>
+    <input type="hidden" name="_method" value="patch">
+  <% end %>
+
+  <label for="cat_name">Name</label><br>
+  <input id="cat_name" type="text" name="cat[name]" value="<%= cat.name %>"><br><br>
+
+  <label for="cat_sex">Sex</label><br>
+  <input type="radio" name="cat[sex]" value="F" <%= "checked" if cat.sex == 'F' %>>F<br>
+  <input type="radio" name="cat[sex]" value="M" <%= "checked" if cat.sex == 'M' %>>M<br><br>
+
+  <label for="cat_color">Color</label><br>
+  <select id="cat_color" name="cat[color]">
+    <option value="" disabled selected></option>
+    <option value="black" <%= "selected" if cat.color == 'black' %> >Black</option>
+    <option value="white" <%= "selected" if cat.color == 'white' %> >White</option>
+    <option value="brown" <%= "selected" if cat.color == 'brown' %> >Brown</option>
+  </select><br><br>
+
+  <label for="cat_birth_date">Birth Date</label><br>
+  <input type="date" name="cat[birth_date]" value="<%= cat.birth_date %>"><br><br>
+
+  <label>Description<br>
+    <textarea name="cat[description]" cols="30" rows="10"><%= cat.description %></textarea><br>
+  </label><br><br>
+
+  <button>Submit</button>
+</form>
