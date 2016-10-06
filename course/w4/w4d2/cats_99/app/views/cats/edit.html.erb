@@ -1,3 +1,7 @@
 <label for="title"></label>
 <h1 id='title'> Edit Cat </h1>
 <%= render "form", cat: @cat, action: :edit %>
+
+<% content_for :footer do %>
+  <p>This is the edit cat html page</p>
+<% end %>
