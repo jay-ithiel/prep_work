@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+  fail
     if @user.save
       login_user!(@user)
       send_welcome_email
