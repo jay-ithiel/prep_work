@@ -1,0 +1,6 @@
+<% @bands.each do |band| %>
+  <%= link_to band.name, band_url(band), method: :get %>
+  <br/><br/>
+<% end %>
+
+<%= link_to "Add new band", new_band_url, method: :get %>

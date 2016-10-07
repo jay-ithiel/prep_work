@@ -1,0 +1,15 @@
+<h2>Track Name: <%= @track.name %></h2>
+<h3>Album Name: <%= @track.album.name %></h3>
+<p>
+  Lyrics: <br/>
+  <%= @track.lyrics %>
+</p>
+
+<br/><br/>
+
+<%= link_to @track.album.name, album_url(@track.album), method: :get %>
+
+<br/><br/>
+
+<%= link_to "Delete Track", track_url(@track),
+  data: {confirm: "Are you sure?"}, method: :delete %>
