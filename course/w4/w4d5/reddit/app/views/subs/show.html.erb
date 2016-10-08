@@ -1,0 +1,25 @@
+<h2><%= @sub.title %></h2>
+
+<%= @sub.description %>
+
+<br/>
+
+<%= link_to "edit #{@sub.title}", edit_sub_url(@sub), method: :get %>
+
+<br/>
+
+<%= link_to "Create New Post", new_sub_post_url(@sub), method: :get %>
+
+<br/><br/>
+
+All Posts
+<ol>
+  <% @sub.posts.each do |post| %>
+    <li>
+      <%= link_to "#{post.title}", post_url(post), method: :get %>
+    </li>
+  <% end %>
+</ol>
+
+<br><br>
+<%= link_to "Back to directory", subs_url, method: :get %>

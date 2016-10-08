@@ -1,0 +1,14 @@
+<h2> Top comment </h2>
+<h3> <%= @comment.content %> </h3>
+
+<h4>Children comments </h4>
+
+<% @comment.child_comments.each do |child_comment| %>
+ <%= child_comment.content %>
+<% end %>
+
+<%= render "form", post: @post, parent_id: @comment.id %>
+
+<br/>
+
+<%= link_to "Back to post", post_url(@post), method: :get %>

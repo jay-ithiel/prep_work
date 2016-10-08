@@ -1,0 +1,39 @@
+<h2><%= @post.title %>'s post</h2>
+
+<br/>
+
+<!-- a href="<%= @post.url %>">Unknown link</a> -->
+<%= link_to "Unknown link", @post.url, :target => '_blank' %>
+
+<br/>
+
+<p><%= @post.content %> </p>
+<br>
+<%= link_to "Edit post", edit_post_url(@post), method: :get %>
+<br/>
+
+<%= link_to "Delete post", post_url(@post), method: :delete %>
+
+<br/>
+
+<h3>Comments</h3>
+<% @post.comments.each do |comment| %>
+  <% if comment.parent_id.nil? %>
+    <%= link_to "#{comment.content}", comment_url(comment), method: :get %>
+  <% else %>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= comment.content %></p>
+  <% end %>
+  <br>
+<% end %>
+
+<br/>
+<%= link_to "Add Comment", new_post_comment_url(@post), method: :get %>
+<br/>
+Back to Sub:
+<% @post.subs.each do |subb| %>
+  <%= link_to "#{subb.title}", sub_url(subb), method: :get %>
+<% end %>
+<br><br>
+
+
+<p>Written by <%= @post.author.username %> </p>

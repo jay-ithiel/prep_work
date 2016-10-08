@@ -1,0 +1,13 @@
+<h2>Sub Directory</h2>
+
+<br/>
+
+<strong>All Subs</strong><br/>
+<% @subs.each do |subb| %>
+  <%= link_to subb.title, sub_url(subb), method: :get %>
+  <br>
+<% end %>
+
+<br/><br/>
+
+<%= link_to "New Sub", new_sub_url, method: :get %>

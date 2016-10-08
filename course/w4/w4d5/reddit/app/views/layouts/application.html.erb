@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reddit</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<header>
+  <% if current_user %>
+    <font size="2">Hello <%= current_user.username %></font>
+  <% end %>
+</header>
+<body>
+
+<%= yield %>
+
+<br>
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+    <%= error %>
+  <% end %>
+<% end %>
+<br>
+
+<% if current_user %>
+  <%= link_to "Logout", session_url, method: :delete %>
+<% else %>
+  <%= link_to "Sign in", new_session_url, method: :get %>
+  <%= link_to "Sign up", new_user_url, method: :get %>
+<% end %>
+</body>
+</html>
