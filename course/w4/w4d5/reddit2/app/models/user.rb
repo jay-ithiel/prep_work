@@ -2,6 +2,10 @@ class User < ApplicationRecord
   validates :username, :session_token, presence: true, uniqueness: true
   validates :password_digest, presence: true
 
+  has_many :subs,
+    foreign_key: :moderator_id,
+    class_name: :Sub
+
   after_initialize :ensure_session_token
 
   def self.gen_session_token
