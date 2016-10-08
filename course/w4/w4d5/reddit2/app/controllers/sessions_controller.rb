@@ -9,9 +9,7 @@ class SessionsController < ApplicationController
       params[:user][:password]
     )
 
-    @user.reset_session_token!
-    session[:session_token] = @user.session_token
-
+    login!(@user)
     redirect_to :user_url(@user)
   end
 
