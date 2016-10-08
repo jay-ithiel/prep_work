@@ -1,12 +1,17 @@
 class User < ApplicationRecord
-  validates :username, :session_token, presence: true, uniqueness: true
-  validates :password_digest, presence: true
+  validates :username,
+    :session_token,
+    presence: true,
+    uniqueness: true
 
-  has_many :subs,
-    foreign_key: :moderator_id,
-    class_name: :Sub
+  validates :password_digest, presence: true
+  validates :password, length: { minimum: 6, allow_nil: true }
 
   after_initialize :ensure_session_token
+  
+  has_many :subs,
+  foreign_key: :moderator_id,
+  class_name: :Sub
 
   def self.gen_session_token
     SecureRandom.urlsafe_base64
