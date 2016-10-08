@@ -1,7 +1,5 @@
 class SessionsController < ApplicationController
-
   def new
-    render :new
   end
 
   def create
@@ -9,18 +7,19 @@ class SessionsController < ApplicationController
       params[:user][:username],
       params[:user][:password]
     )
-    
-    if @user
-      login(@user)
-    else
-      flash.now[:errors] = ["Invalid credentials!"]
+
+    if @user.nil?
+      flash.now[:errors] = ["Invalid credentials"]
       render :new
+    else
+      login!(@user)
+      redirect_to links_url
     end
   end
 
   def destroy
-    logout(current_user)
+    logout!
+    redirect_to new_session_url
   end
-
 
 end

@@ -1,0 +1,23 @@
+<% action_url = link.persisted? ? link_url(link) : links_url %>
+<% http_method = link.persisted? ? "PATCH" : "POST" %>
+<% button_text = link.persisted? ? "Update Link" : "Create Link" %>
+
+<form action="<%= action_url %>" method="POST">
+  <input type="hidden" name="_method" value="<%= http_method %>">
+  <input
+    type="hidden"
+    name="authenticity_token"
+    value="<%= form_authenticity_token %>" >
+
+  <label>Title
+    <input type="text" name="link[title]" value="<%= link.title %>">
+  </label>
+
+  <br/><br/>
+
+  <label>Url
+    <input type="text" name="link[url]" value="<%= link.url %>">
+  </label>
+
+  <button><%= button_text %></button>
+</form>
