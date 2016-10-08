@@ -39,6 +39,11 @@ class SubsController < ApplicationController
   end
 
   def destroy
+    user = @sub.moderator
+    @sub = Sub.find(params[:id])
+    @sub.destroy
+
+    redirect_to user_url(user)
   end
 
   private
