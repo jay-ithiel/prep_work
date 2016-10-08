@@ -1,7 +1,4 @@
 class SessionsController < ApplicationController
-
-
-
   def new
     render :new
   end
@@ -16,7 +13,7 @@ class SessionsController < ApplicationController
       flash.now[:errors] = ["Invalid credentials"]
       render :new
     else
-      login!(user)
+      login!(@user)
     end
   end
 

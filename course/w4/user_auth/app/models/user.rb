@@ -23,7 +23,7 @@ class User < ApplicationRecord
 
   def is_password?(password)
     bcrypt_obj = BCrypt::Password.new(self.password_digest)
-    brcypt_obj.is_password?(password)
+    bcrypt_obj.is_password?(password)
   end
 
   def reset_session_token!
