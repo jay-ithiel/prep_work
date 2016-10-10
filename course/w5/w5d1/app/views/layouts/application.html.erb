@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GoalApp</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<% if logged_in? %>
+  <%= link_to "Sign Out", session_url, method: :delete %>
+  <%= current_user.username %>
+<% end %>
+
+<%= render "layouts/errors" %>
+
+<%= yield %>
+
+</body>
+</html>
