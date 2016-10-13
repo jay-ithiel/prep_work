@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Assessment04</title>
+</head>
+<body>
+<% if logged_in? %>
+  <%= current_user.username %>
+  <%= button_to "Sign Out", session_url, method: :delete %>
+<% end %>
+
+<%= render "layouts/errors" %>
+<%= yield %>
+
+</body>
+</html>
