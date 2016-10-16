@@ -1,5 +1,5 @@
-const Game = require("./game.js");
-const Ship = require("./ship.js")
+const Game = require("./game");
+const Ship = require("./ship");
 
 function GameView(ctx) {
   this.game = new Game();

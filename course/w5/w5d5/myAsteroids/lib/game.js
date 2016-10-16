@@ -1,4 +1,4 @@
-const Asteroid = require("./asteroid.js")
+const Asteroid = require("./asteroid");
 
 function Game() {
   this.asteroids = [];
