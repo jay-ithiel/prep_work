@@ -2,13 +2,13 @@ const Game = require("./game");
 const MovingObject = require("./moving_object");
 const Util = require("./util");
 
-function Asteroid(options) {
+function Asteroid(options = {}) {
   this.color = "#505050";
   this.radius = this.randomRadius();
-  this.pos = options.pos || Game.randomPosition();
+  this.pos = options.pos || options.game.randomPosition();
   this.vel = options.vel || Util.randomVec(50);
 
-  MovingObject.call(this, options);
+  // MovingObject.call(this, options);
 }
 
 Util.inherits(Asteroid, MovingObject)

@@ -6,10 +6,13 @@ const Util = {
     childClass.prototype.constructor = childClass;
   },
 
-  randomVec(length) {
-    let x = Math.random() * length;
-    let y = Math.random() * length;
-    return [x, y];
+  randomVec (length) {
+  var deg = 2 * Math.PI * Math.random();
+  return Util.scale([Math.sin(deg), Math.cos(deg)], length);
+  },
+
+  scale (vec, m) {
+    return [vec[0] * m, vec[1] * m];
   }
 }
 

@@ -74,25 +74,28 @@
 	Game.DIM_X = 800;
 	Game.DIM_Y = 800;
 	Game.NUM_ASTEROIDS = 20;
+	Game.BG_COLOR = "#000000";
 
 	Game.prototype.randomPosition = function() {
 	  return [
-	    Game.DIM_X * Math.Random(),
-	    Game.DIM_Y * Math.Random()
+	    Game.DIM_X * Math.random(),
+	    Game.DIM_Y * Math.random()
 	  ];
 	}
 
 	Game.prototype.addAsteroids = function() {
-	  for (let i = 0; i < this.NUM_ASTEROIDS; i++){
-	    this.asteroids.push(new Asteroid());
+	  for (let i = 0; i < Game.NUM_ASTEROIDS; i++){
+	    this.asteroids.push(new Asteroid({ game: this }));
 	  }
 	}
 
 	Game.prototype.draw = function(ctx) {
-	  ctx.clearRect(0, 0, this.DIM_X, this.DIM_Y);
+	  ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+	  ctx.fillStyle = Game.BG_COLOR;
+	  ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
 
 	  for (let i = 0; i < this.asteroids.length; i++){
-	    this.asteroids[i].draw();
+	    this.asteroids[i].draw(ctx);
 	  }
 	}
 
@@ -113,13 +116,13 @@
 	const MovingObject = __webpack_require__(3);
 	const Util = __webpack_require__(4);
 
-	function Asteroid(options) {
-	  this.color = "#D3D3D3";
-	  this.radius = this.genRadius();
-	  this.pos = options.pos || Game.randomPosition();
+	function Asteroid(options = {}) {
+	  this.color = "#505050";
+	  this.radius = this.randomRadius();
+	  this.pos = options.pos || options.game.randomPosition();
 	  this.vel = options.vel || Util.randomVec(50);
 
-	  MovingObject.call(this, options);
+	  // MovingObject.call(this, options);
 	}
 
 	Util.inherits(Asteroid, MovingObject)
@@ -156,11 +159,25 @@
 	    this.radius,
 	    0,
 	    2 * Math.PI,
-	    false
+	    true
 	  );
 
 	  ctx.fill();
 	}
+
+
+	// const NORMAL_FRAME_TIME_DELTA = 1000/60;
+	// MovingObject.prototype.move = function (timeDelta) {
+	//   //timeDelta is number of milliseconds since last move
+	//   //if the computer is busy the time delta will be larger
+	//   //in this case the MovingObject should move farther in this frame
+	//   //velocity of object is how far it should move in 1/60th of a second
+	//   const velocityScale = timeDelta / NORMAL_FRAME_TIME_DELTA,
+	//       offsetX = this.vel[0] * velocityScale,
+	//       offsetY = this.vel[1] * velocityScale;
+	//
+	//   this.pos = [this.pos[0] + offsetX, this.pos[1] + offsetY];
+	// };
 
 	MovingObject.prototype.move = function() {
 	  this.pos[0] += this.vel[0];
@@ -182,10 +199,13 @@
 	    childClass.prototype.constructor = childClass;
 	  },
 
-	  randomVec(length) {
-	    let x = Math.random() * length;
-	    let y = Math.random() * length;
-	    return [x, y];
+	  randomVec (length) {
+	  var deg = 2 * Math.PI * Math.random();
+	  return Util.scale([Math.sin(deg), Math.cos(deg)], length);
+	  },
+
+	  scale (vec, m) {
+	    return [vec[0] * m, vec[1] * m];
 	  }
 	}
 
