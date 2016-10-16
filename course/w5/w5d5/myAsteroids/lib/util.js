@@ -1,5 +1,5 @@
 const Util = {
-  inherits(childClass, ParentClass) {
+  inherits (childClass, ParentClass) {
     function Surrogate() {};
     Surrogate.prototype = ParentClass.prototype;
     childClass.prototype = new Surrogate();
@@ -13,6 +13,16 @@ const Util = {
 
   scale (vec, m) {
     return [vec[0] * m, vec[1] * m];
+  },
+
+  wrap (coord, max) {
+    if (coord < 0) {
+      return max - (coord % max);
+    } elsif (coord > max) {
+      return coord % max;
+    } else {
+      return coord;
+    }
   }
 }
 

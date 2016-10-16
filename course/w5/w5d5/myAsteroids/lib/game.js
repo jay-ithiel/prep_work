@@ -41,14 +41,32 @@ Game.prototype.moveObjects = function() {
 }
 
 Game.prototype.wrap = function(pos) {
-  let pos_x = pos[0];
-  let pos_y = pos[1];
+  let x = pos[0], y = pos[1];
+  let maxX = Game.DIM_X, maxY = Game.DIM_Y;
 
-  if (pos_x > Game.DIM_X) { pos_x -= Game.DIM_X; }
-  if (pos_y > Game.DIM_Y) { pos_y -= Game.DIM_Y; }
+  let wrappedX = Util.wrap(x, maxX);
+  let wrappedY = Util.wrap(y, maxY);
 
-  let wrapped_pos = [pos_x, pos_y];
-  return wrapped_pos;
+  // if (x > Game.DIM_X) { x -= Game.DIM_X; }
+  // if (y > Game.DIM_Y) { y -= Game.DIM_Y; }
+
+  return [wrappedX, wrappedY];
+}
+
+Game.prototype.checkCollisions() {
+  for (var i = 0; i < this.asteroids.length; i++) {
+    let asteroid1 = this.asteroids[i];
+    for (var j = 0; j < this.asteroids.length; j++) {
+      let asteroid2 = this.asteroids[j];
+      if (i === j) { continue }
+      if (asteroid1.isCollidedWith(asteroid2) { alert ("COLLISION") });
+    }
+  }
+}
+
+Game.prototype.step = function() {
+  this.moveObjects();
+  this.checkCollisions();
 }
 
 module.exports = Game;
