@@ -53,13 +53,13 @@ Game.prototype.wrap = function(pos) {
   return [wrappedX, wrappedY];
 }
 
-Game.prototype.checkCollisions() {
+Game.prototype.checkCollisions = function() {
   for (var i = 0; i < this.asteroids.length; i++) {
     let asteroid1 = this.asteroids[i];
     for (var j = 0; j < this.asteroids.length; j++) {
       let asteroid2 = this.asteroids[j];
       if (i === j) { continue }
-      if (asteroid1.isCollidedWith(asteroid2) { alert ("COLLISION") });
+      if (asteroid1.isCollidedWith(asteroid2)) { alert ("COLLISION") }
     }
   }
 }

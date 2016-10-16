@@ -106,14 +106,32 @@
 	}
 
 	Game.prototype.wrap = function(pos) {
-	  let pos_x = pos[0];
-	  let pos_y = pos[1];
+	  let x = pos[0], y = pos[1];
+	  let maxX = Game.DIM_X, maxY = Game.DIM_Y;
 
-	  if (pos_x > Game.DIM_X) { pos_x -= Game.DIM_X; }
-	  if (pos_y > Game.DIM_Y) { pos_y -= Game.DIM_Y; }
+	  let wrappedX = Util.wrap(x, maxX);
+	  let wrappedY = Util.wrap(y, maxY);
 
-	  let wrapped_pos = [pos_x, pos_y];
-	  return wrapped_pos;
+	  // if (x > Game.DIM_X) { x -= Game.DIM_X; }
+	  // if (y > Game.DIM_Y) { y -= Game.DIM_Y; }
+
+	  return [wrappedX, wrappedY];
+	}
+
+	Game.prototype.checkCollisions = function() {
+	  for (var i = 0; i < this.asteroids.length; i++) {
+	    let asteroid1 = this.asteroids[i];
+	    for (var j = 0; j < this.asteroids.length; j++) {
+	      let asteroid2 = this.asteroids[j];
+	      if (i === j) { continue }
+	      if (asteroid1.isCollidedWith(asteroid2)) { alert ("COLLISION") }
+	    }
+	  }
+	}
+
+	Game.prototype.step = function() {
+	  this.moveObjects();
+	  this.checkCollisions();
 	}
 
 	module.exports = Game;
@@ -175,26 +193,25 @@
 	  ctx.fill();
 	}
 
-
-	// const NORMAL_FRAME_TIME_DELTA = 1000/60;
-	// MovingObject.prototype.move = function (timeDelta) {
-	//   //timeDelta is number of milliseconds since last move
-	//   //if the computer is busy the time delta will be larger
-	//   //in this case the MovingObject should move farther in this frame
-	//   //velocity of object is how far it should move in 1/60th of a second
-	//   const velocityScale = timeDelta / NORMAL_FRAME_TIME_DELTA,
-	//       offsetX = this.vel[0] * velocityScale,
-	//       offsetY = this.vel[1] * velocityScale;
-	//
-	//   this.pos = [this.pos[0] + offsetX, this.pos[1] + offsetY];
-	// };
-
 	MovingObject.prototype.move = function() {
 	  this.pos[0] += this.vel[0];
 	  this.pos[1] += this.vel[1];
 	  this.pos = this.game.wrap(this.pos);
 	}
 
+	MovingObject.prototype.isCollidedWith = function(otherObject) {
+	  let radiusSum = this.radius + otherObject.radius;
+
+	  let xDiff = otherObject.pos[0] - this.pos[0];
+	  let yDiff = otherObject.pos[1] - this.pos[1];
+	  let xDist = Math.pow(xDiff, 2);
+	  let yDist = Math.pow(yDiff, 2);
+
+	  let centerDiff = Math.sqrt(xDiff + yDiff);
+
+	  if (centerDiff < radiusSum) { return true; }
+	  else { return false; }
+	}
 
 
 	module.exports = MovingObject;
@@ -205,7 +222,7 @@
 /***/ function(module, exports) {
 
 	const Util = {
-	  inherits(childClass, ParentClass) {
+	  inherits (childClass, ParentClass) {
 	    function Surrogate() {};
 	    Surrogate.prototype = ParentClass.prototype;
 	    childClass.prototype = new Surrogate();
@@ -219,6 +236,16 @@
 
 	  scale (vec, m) {
 	    return [vec[0] * m, vec[1] * m];
+	  },
+
+	  wrap (coord, max) {
+	    if (coord < 0) {
+	      return max - (coord % max);
+	    } else if (coord > max) {
+	      return coord % max;
+	    } else {
+	      return coord;
+	    }
 	  }
 	}
 
