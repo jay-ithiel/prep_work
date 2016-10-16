@@ -8,7 +8,7 @@ function Game() {
 
 Game.DIM_X = 800;
 Game.DIM_Y = 800;
-Game.NUM_ASTEROIDS = 20;
+Game.NUM_ASTEROIDS = 10;
 Game.BG_COLOR = "#000000";
 
 Game.prototype.randomPosition = function() {
