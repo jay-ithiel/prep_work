@@ -8,7 +8,7 @@ function Game() {
 
 Game.DIM_X = 800;
 Game.DIM_Y = 800;
-Game.NUM_ASTEROIDS = 10;
+Game.NUM_ASTEROIDS = 4;
 Game.BG_COLOR = "#000000";
 
 Game.prototype.randomPosition = function() {
@@ -46,9 +46,6 @@ Game.prototype.wrap = function(pos) {
 
   let wrappedX = Util.wrap(x, maxX);
   let wrappedY = Util.wrap(y, maxY);
-
-  // if (x > Game.DIM_X) { x -= Game.DIM_X; }
-  // if (y > Game.DIM_Y) { y -= Game.DIM_Y; }
 
   return [wrappedX, wrappedY];
 }
