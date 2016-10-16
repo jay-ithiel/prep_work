@@ -52,11 +52,14 @@ Game.prototype.wrap = function(pos) {
 
 Game.prototype.checkCollisions = function() {
   for (var i = 0; i < this.asteroids.length; i++) {
-    let asteroid1 = this.asteroids[i];
     for (var j = 0; j < this.asteroids.length; j++) {
+      let asteroid1 = this.asteroids[i];
       let asteroid2 = this.asteroids[j];
-      if (i === j) { continue }
-      if (asteroid1.isCollidedWith(asteroid2)) { alert ("COLLISION") }
+
+      if (asteroid1.isCollidedWith(asteroid2)) {
+        const collision = asteroid1.isCollidedWith(asteroid2);
+        if (collision) { alert ("COLLISION") }
+      }
     }
   }
 }

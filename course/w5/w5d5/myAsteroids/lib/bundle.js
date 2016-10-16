@@ -73,7 +73,7 @@
 
 	Game.DIM_X = 800;
 	Game.DIM_Y = 800;
-	Game.NUM_ASTEROIDS = 10;
+	Game.NUM_ASTEROIDS = 4;
 	Game.BG_COLOR = "#000000";
 
 	Game.prototype.randomPosition = function() {
@@ -112,19 +112,19 @@
 	  let wrappedX = Util.wrap(x, maxX);
 	  let wrappedY = Util.wrap(y, maxY);
 
-	  // if (x > Game.DIM_X) { x -= Game.DIM_X; }
-	  // if (y > Game.DIM_Y) { y -= Game.DIM_Y; }
-
 	  return [wrappedX, wrappedY];
 	}
 
 	Game.prototype.checkCollisions = function() {
 	  for (var i = 0; i < this.asteroids.length; i++) {
-	    let asteroid1 = this.asteroids[i];
 	    for (var j = 0; j < this.asteroids.length; j++) {
+	      let asteroid1 = this.asteroids[i];
 	      let asteroid2 = this.asteroids[j];
-	      if (i === j) { continue }
-	      if (asteroid1.isCollidedWith(asteroid2)) { alert ("COLLISION") }
+	      
+	      if (asteroid1.isCollidedWith(asteroid2)) {
+	        const collision = asteroid1.collidedWith(asteroid2);
+	        if (collision) { alert ("COLLISION") }
+	      }
 	    }
 	  }
 	}
@@ -202,15 +202,14 @@
 	MovingObject.prototype.isCollidedWith = function(otherObject) {
 	  let radiusSum = this.radius + otherObject.radius;
 
-	  let xDiff = otherObject.pos[0] - this.pos[0];
-	  let yDiff = otherObject.pos[1] - this.pos[1];
+	  let xDiff = this.pos[0] - otherObject.pos[0];
+	  let yDiff = this.pos[1] - otherObject.pos[1];
 	  let xDist = Math.pow(xDiff, 2);
 	  let yDist = Math.pow(yDiff, 2);
 
 	  let centerDiff = Math.sqrt(xDiff + yDiff);
 
-	  if (centerDiff < radiusSum) { return true; }
-	  else { return false; }
+	  return centerDiff < radiusSum;
 	}
 
 
@@ -266,7 +265,7 @@
 
 	GameView.prototype.start = function() {
 	  setInterval(() => {
-	    this.game.moveObjects();
+	    this.game.step();
 	    this.game.draw(this.ctx);
 	  }, 200);
 	}
