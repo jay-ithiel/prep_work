@@ -3,8 +3,11 @@ const GameView = require("./game_view")
 
 document.addEventListener("DOMContentLoaded", function() {
   const canvas = document.getElementById("game-canvas");
-  const ctx = canvas.getContext("2d");
-});
+  canvas.width = Game.DIM_X;
+  canvas.height = Game.DIM_Y;
 
-const gameView = new GameView();
-gameView.start();
+  const ctx = canvas.getContext("2d");
+  const game = new Game();
+  const gameView = new GameView(game, ctx);
+  gameView.start();
+});

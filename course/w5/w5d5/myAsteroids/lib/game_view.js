@@ -1,15 +1,15 @@
 const Game = require("./game");
 const Ship = require("./ship");
 
-function GameView(ctx) {
-  this.game = new Game();
+const GameView = function(game, ctx) {
+  this.game = game;
   this.ctx = ctx;
 }
 
 GameView.prototype.start = function() {
   setInterval(() => {
     this.game.moveObjects();
-    this.game.draw();
+    this.game.draw(this.ctx);
   }, 200);
 }
 

@@ -49,11 +49,14 @@
 
 	document.addEventListener("DOMContentLoaded", function() {
 	  const canvas = document.getElementById("game-canvas");
-	  const ctx = canvas.getContext("2d");
-	});
+	  canvas.width = Game.DIM_X;
+	  canvas.height = Game.DIM_Y;
 
-	const gameView = new GameView();
-	gameView.start();
+	  const ctx = canvas.getContext("2d");
+	  const game = new Game();
+	  const gameView = new GameView(game, ctx);
+	  gameView.start();
+	});
 
 
 /***/ },
@@ -61,6 +64,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	const Asteroid = __webpack_require__(2);
+	const Util = __webpack_require__(4);
 
 	function Game() {
 	  this.asteroids = [];
@@ -79,7 +83,7 @@
 	}
 
 	Game.prototype.addAsteroids = function() {
-	  for (let i = 0; i < NUM_ASTEROIDS; i++){
+	  for (let i = 0; i < this.NUM_ASTEROIDS; i++){
 	    this.asteroids.push(new Asteroid());
 	  }
 	}
@@ -130,13 +134,16 @@
 
 /***/ },
 /* 3 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	function MovingObject(options) {
+	const Util = __webpack_require__(4);
+
+	const MovingObject = function(options) {
 	  this.pos = options.pos;
 	  this.vel = options.vel;
 	  this.radius = options.radius;
 	  this.color = options.color;
+	  this.game = options.game;
 	}
 
 	MovingObject.prototype.draw = function(ctx) {
@@ -170,7 +177,7 @@
 	const Util = {
 	  inherits(childClass, ParentClass) {
 	    function Surrogate() {};
-	    Surrogate.prototype = parentClass.prototype;
+	    Surrogate.prototype = ParentClass.prototype;
 	    childClass.prototype = new Surrogate();
 	    childClass.prototype.constructor = childClass;
 	  },
@@ -192,15 +199,15 @@
 	const Game = __webpack_require__(1);
 	const Ship = __webpack_require__(6);
 
-	function GameView(ctx) {
-	  this.game = new Game();
+	const GameView = function(game, ctx) {
+	  this.game = game;
 	  this.ctx = ctx;
 	}
 
 	GameView.prototype.start = function() {
 	  setInterval(() => {
 	    this.game.moveObjects();
-	    this.game.draw();
+	    this.game.draw(this.ctx);
 	  }, 200);
 	}
 

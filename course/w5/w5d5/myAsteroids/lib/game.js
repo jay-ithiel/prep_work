@@ -1,4 +1,5 @@
 const Asteroid = require("./asteroid");
+const Util = require("./util");
 
 function Game() {
   this.asteroids = [];
@@ -17,7 +18,7 @@ Game.prototype.randomPosition = function() {
 }
 
 Game.prototype.addAsteroids = function() {
-  for (let i = 0; i < NUM_ASTEROIDS; i++){
+  for (let i = 0; i < this.NUM_ASTEROIDS; i++){
     this.asteroids.push(new Asteroid());
   }
 }
