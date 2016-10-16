@@ -1,11 +1,12 @@
+const Game = require("./game.js");
 const MovingObject = require("./moving_object.js");
 const Util = require("./utils.js");
 
 function Asteroid(options) {
   this.color = #D3D3D3;
   this.radius = this.genRadius();
-  this.pos = options.pos;
-  this.vel = Util.randomVec();
+  this.pos = options.pos || Game.randomPosition();
+  this.vel = options.vel || Util.randomVec();
 
   MovingObject.call(this, options);
 }
