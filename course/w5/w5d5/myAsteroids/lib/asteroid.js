@@ -3,8 +3,8 @@ const MovingObject = require("./moving_object");
 const Util = require("./util");
 
 function Asteroid(options) {
-  this.color = "#D3D3D3";
-  this.radius = this.genRadius();
+  this.color = "#505050";
+  this.radius = this.randomRadius();
   this.pos = options.pos || Game.randomPosition();
   this.vel = options.vel || Util.randomVec(50);
 
