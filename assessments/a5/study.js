@@ -174,29 +174,38 @@ function isPrime(num) {
 // 2 *
 
 function numFactorials(num) {
-  if (num === 0) { return 1 }
-  let factorials = [];
-  let factorial = numFactorials(num-1);
-  factorials.push(factorial);
+  if (num <= 0) { return [] }
+  let factorials = [1];
+
+  for (var n = 1; factorials.length < num; n++) {
+    factorials.push(factorial(n));
+  }
+
   return factorials;
 }
 
+function factorial(num) {
+  if (num < 0) { return 'fuck off, infinite loop!' }
+  if (num == 1 || num == 0) { return 1 };
+  return num * factorial(num - 1);
+}
 
-
-
+// console.log(numFactorials(4));
 
 
 
 // class Array
 // Write an Array//dups method that will return a hash containing the
-// indices of all duplicate elements. The keys are the duplicate elements;
-// the values are arrays of their indices in ascending order, e.g.
+// indices of all duplicate elements. The keys are the duplicate
+// elements; the values are arrays of their indices in ascending
+// order, e.g.
 // [1, 3, 4, 3, 0, 3, 0].dups => { 3 => [1, 3, 5], 0 => [4, 6] }
 
+Array.prototype.dups = function() {
 
+}
 
-
-
+console.log([1, 3, 4, 3, 0, 3, 0].dups());
 
 
 
