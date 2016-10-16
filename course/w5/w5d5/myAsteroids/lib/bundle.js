@@ -105,6 +105,17 @@
 	  }
 	}
 
+	Game.prototype.wrap = function(pos) {
+	  let pos_x = pos[0];
+	  let pos_y = pos[1];
+
+	  if (pos_x > Game.DIM_X) { pos_x -= Game.DIM_X; }
+	  if (pos_y > Game.DIM_Y) { pos_y -= Game.DIM_Y; }
+
+	  let wrapped_pos = [pos_x, pos_y];
+	  return wrapped_pos;
+	}
+
 	module.exports = Game;
 
 
@@ -112,17 +123,16 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Game = __webpack_require__(1);
 	const MovingObject = __webpack_require__(3);
 	const Util = __webpack_require__(4);
 
 	function Asteroid(options = {}) {
-	  this.color = "#505050";
-	  this.radius = this.randomRadius();
-	  this.pos = options.pos || options.game.randomPosition();
-	  this.vel = options.vel || Util.randomVec(50);
+	  options.color = "#505050";
+	  options.radius = this.randomRadius();
+	  options.pos = options.pos || options.game.randomPosition();
+	  options.vel = options.vel || Util.randomVec(50);
 
-	  // MovingObject.call(this, options);
+	  MovingObject.call(this, options);
 	}
 
 	Util.inherits(Asteroid, MovingObject)
@@ -182,7 +192,10 @@
 	MovingObject.prototype.move = function() {
 	  this.pos[0] += this.vel[0];
 	  this.pos[1] += this.vel[1];
+	  this.pos = this.game.wrap(this.pos);
 	}
+
+
 
 	module.exports = MovingObject;
 

@@ -24,23 +24,25 @@ MovingObject.prototype.draw = function(ctx) {
   ctx.fill();
 }
 
-
-// const NORMAL_FRAME_TIME_DELTA = 1000/60;
-// MovingObject.prototype.move = function (timeDelta) {
-//   //timeDelta is number of milliseconds since last move
-//   //if the computer is busy the time delta will be larger
-//   //in this case the MovingObject should move farther in this frame
-//   //velocity of object is how far it should move in 1/60th of a second
-//   const velocityScale = timeDelta / NORMAL_FRAME_TIME_DELTA,
-//       offsetX = this.vel[0] * velocityScale,
-//       offsetY = this.vel[1] * velocityScale;
-//
-//   this.pos = [this.pos[0] + offsetX, this.pos[1] + offsetY];
-// };
-
 MovingObject.prototype.move = function() {
   this.pos[0] += this.vel[0];
   this.pos[1] += this.vel[1];
+  this.pos = this.game.wrap(this.pos);
 }
+
+MovingObject.prototype.isCollidedWith = function(otherObject) {
+  let radiusSum = this.radius + otherObject.radius;
+
+  let xDiff = otherObject.pos[0] - this.pos[0];
+  let yDiff = otherObject.pos[1] - this.pos[1];
+  let xDist = Math.pow(xDiff, 2);
+  let yDist = Math.pow(yDiff, 2);
+
+  let centerDiff = Math.sqrt(xDiff + yDiff);
+
+  if (centerDiff < radiusSum) { return true; }
+  else { return false; }
+}
+
 
 module.exports = MovingObject;

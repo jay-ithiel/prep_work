@@ -40,8 +40,15 @@ Game.prototype.moveObjects = function() {
   }
 }
 
-Game.prototype.wrap = function() {
-  
+Game.prototype.wrap = function(pos) {
+  let pos_x = pos[0];
+  let pos_y = pos[1];
+
+  if (pos_x > Game.DIM_X) { pos_x -= Game.DIM_X; }
+  if (pos_y > Game.DIM_Y) { pos_y -= Game.DIM_Y; }
+
+  let wrapped_pos = [pos_x, pos_y];
+  return wrapped_pos;
 }
 
 module.exports = Game;
