@@ -35,3 +35,5 @@ Game.prototype.moveObjects = function() {
     this.asteroids[i].move();
   }
 }
+
+module.exports = Game;

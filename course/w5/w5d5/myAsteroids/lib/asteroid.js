@@ -17,3 +17,5 @@ Asteroid.prototype.randomRadius = function(maxX, maxY) {
   let radius = Math.random() * 20 + 5;
   return radius;
 }
+
+module.exports = Asteroid;
