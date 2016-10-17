@@ -16,7 +16,14 @@ Util.inherits(Ship, MovingObject);
 Ship.prototype.relocate = function() {
   this.pos = this.game.randomPosition();
   this.vel = [0,0];
+}
 
+Ship.prototype.power = function(impulse) {
+  let xOffset = impulse[0];
+  let yOffset = impulse[1];
+
+  this.pos[0] += xOffset;
+  this.pos[1] += yOffset;
 }
 
 module.exports = Ship;
