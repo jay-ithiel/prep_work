@@ -6,6 +6,7 @@ function Asteroid(options = {}) {
   options.radius = this.randomRadius();
   options.pos = options.pos || options.game.randomPosition();
   options.vel = options.vel || Util.randomVec(50);
+  options.id = options.id;
 
   MovingObject.call(this, options);
 }
@@ -15,6 +16,12 @@ Util.inherits(Asteroid, MovingObject)
 Asteroid.prototype.randomRadius = function(maxX, maxY) {
   let radius = Math.random() * 20 + 5;
   return radius;
+}
+
+Asteroid.prototype.collideWith = function (otherObject) {
+  if (otherObject instanceof Asteroid) {
+    alert("COLLISION")
+  }
 }
 
 module.exports = Asteroid;

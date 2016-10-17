@@ -20,7 +20,7 @@ Game.prototype.randomPosition = function() {
 
 Game.prototype.addAsteroids = function() {
   for (let i = 0; i < Game.NUM_ASTEROIDS; i++){
-    this.asteroids.push(new Asteroid({ game: this }));
+    this.asteroids.push(new Asteroid({ game: this, id: i }));
   }
 }
 
@@ -56,9 +56,15 @@ Game.prototype.checkCollisions = function() {
       let asteroid1 = this.asteroids[i];
       let asteroid2 = this.asteroids[j];
 
+      console.log(asteroid1.isCollidedWith(asteroid2));
+      console.log(asteroid1.id);
+      console.log(asteroid2.id);
+
+      if (asteroid1.id === asteroid2.id) { continue }
+
       if (asteroid1.isCollidedWith(asteroid2)) {
-        const collision = asteroid1.isCollidedWith(asteroid2);
-        if (collision) { alert ("COLLISION") }
+        const collision = asteroid1.collideWith(asteroid2);
+        if (collision) { return }
       }
     }
   }

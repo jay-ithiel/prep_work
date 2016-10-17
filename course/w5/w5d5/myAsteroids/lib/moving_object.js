@@ -6,6 +6,7 @@ const MovingObject = function(options) {
   this.radius = options.radius;
   this.color = options.color;
   this.game = options.game;
+  this.id = options.id;
 }
 
 MovingObject.prototype.draw = function(ctx) {
@@ -30,7 +31,12 @@ MovingObject.prototype.move = function() {
   this.pos = this.game.wrap(this.pos);
 }
 
+MovingObject.prototype.collideWith = function (otherObject) {
+  // default do nothing
+};
+
 MovingObject.prototype.isCollidedWith = function(otherObject) {
+  if (this.id === otherObject.id) { return false }
   let radiusSum = this.radius + otherObject.radius;
 
   let xDiff = this.pos[0] - otherObject.pos[0];
