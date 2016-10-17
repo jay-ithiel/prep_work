@@ -30,6 +30,11 @@ const Util = {
       Math.pow(pos1[0] - pos2[0], 2) + Math.pow(pos1[1] - pos2[1], 2)
     );
   },
+
+  randomRadius (maxX, maxY) {
+    let radius = Math.random() * 20 + 5;
+    return radius;
+  }
 }
 
 module.exports = Util;

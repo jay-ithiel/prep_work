@@ -4,7 +4,7 @@ const Util = require("./util");
 
 function Asteroid(options = {}) {
   options.color = "#505050";
-  options.radius = MovingObject.randomRadius();
+  options.radius = Util.randomRadius();
   options.pos = options.pos || options.game.randomPosition();
   options.vel = options.vel || Util.randomVec(50);
   options.id = options.id;

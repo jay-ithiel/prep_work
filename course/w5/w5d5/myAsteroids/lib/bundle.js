@@ -45,7 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	const Game = __webpack_require__(1);
-	const GameView = __webpack_require__(5)
+	const GameView = __webpack_require__(6)
 
 	document.addEventListener("DOMContentLoaded", function() {
 	  const canvas = document.getElementById("game-canvas");
@@ -64,10 +64,13 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	const Asteroid = __webpack_require__(2);
+	const Ship = __webpack_require__(3)
 	const Util = __webpack_require__(4);
 
 	function Game() {
 	  this.asteroids = [];
+	  this.ship = new Ship({ game: this });
+
 	  this.addAsteroids();
 	}
 
@@ -94,14 +97,19 @@
 	  ctx.fillStyle = Game.BG_COLOR;
 	  ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
 
-	  for (let i = 0; i < this.asteroids.length; i++){
-	    this.asteroids[i].draw(ctx);
+	  for (let i = 0; i < this.allObjects.length; i++){
+	    this.allObjects[i].draw(ctx);
 	  }
 	}
 
+	Game.prototype.allObjects = function() {
+	  const objects = this.asteroids.concat(this.ship);
+	  return objects;
+	}
+
 	Game.prototype.moveObjects = function() {
-	  for (let i = 0; i < this.asteroids.length; i++){
-	    this.asteroids[i].move();
+	  for (let i = 0; i < this.allObjects.length; i++){
+	    this.allObjects[i].move();
 	  }
 	}
 
@@ -116,10 +124,10 @@
 	}
 
 	Game.prototype.checkCollisions = function() {
-	  for (var i = 0; i < this.asteroids.length; i++) {
-	    for (var j = 0; j < this.asteroids.length; j++) {
-	      let asteroid1 = this.asteroids[i];
-	      let asteroid2 = this.asteroids[j];
+	  for (var i = 0; i < allObjects.length; i++) {
+	    for (var j = 0; j < allObjects.length; j++) {
+	      let asteroid1 = allObjects[i];
+	      let asteroid2 = allObjects[j];
 
 	      if (asteroid1.id === asteroid2.id) { continue }
 
@@ -140,9 +148,9 @@
 	  this.checkCollisions();
 	}
 
-	Game.prototype.remove = function(asteroid) {
-	  let index = this.asteroids.indexOf(asteroid);
-	  this.asteroids.splice(index, 1);
+	Game.prototype.remove = function(object) {
+	  let index = allObjects.indexOf(object);
+	  allObjects.splice(index, 1);
 	}
 
 	module.exports = Game;
@@ -152,12 +160,13 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const MovingObject = __webpack_require__(3);
+	const Ship = __webpack_require__(3)
+	const MovingObject = __webpack_require__(5);
 	const Util = __webpack_require__(4);
 
 	function Asteroid(options = {}) {
 	  options.color = "#505050";
-	  options.radius = this.randomRadius();
+	  options.radius = new MovingObject.randomRadius();
 	  options.pos = options.pos || options.game.randomPosition();
 	  options.vel = options.vel || Util.randomVec(50);
 	  options.id = options.id;
@@ -167,14 +176,10 @@
 
 	Util.inherits(Asteroid, MovingObject)
 
-	Asteroid.prototype.randomRadius = function(maxX, maxY) {
-	  let radius = Math.random() * 20 + 5;
-	  return radius;
-	}
-
 	Asteroid.prototype.collideWith = function (otherObject) {
-	  this.game.remove(this);
-	  this.game.remove(otherObject);
+	  if (otherObject instanceof Ship) {
+	    Ship.relocate();
+	  }
 	}
 
 	module.exports = Asteroid;
@@ -182,6 +187,71 @@
 
 /***/ },
 /* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const Util = __webpack_require__(4);
+	const MovingObject = __webpack_require__(5)
+
+	function Ship(options = {}) {
+	  options.radius = 15;
+	  options.color = "#00FF00";
+	  options.vel = [0,0];
+	  options.pos = options.game.randomPosition();
+	}
+
+	Util.inherits(Ship, MovingObject);
+
+	Ship.prototype.relocate = function() {
+	  this.pos = options.game.randomPosition();
+	  this.vel = [0,0];
+	}
+
+	module.exports = Ship;
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	const Util = {
+	  inherits (childClass, ParentClass) {
+	    function Surrogate() {};
+	    Surrogate.prototype = ParentClass.prototype;
+	    childClass.prototype = new Surrogate();
+	    childClass.prototype.constructor = childClass;
+	  },
+
+	  randomVec (length) {
+	    var deg = 2 * Math.PI * Math.random();
+	    return Util.scale([Math.sin(deg), Math.cos(deg)], length);
+	  },
+
+	  scale (vec, m) {
+	    return [vec[0] * m, vec[1] * m];
+	  },
+
+	  wrap (coord, max) {
+	    if (coord < 0) {
+	      return max - (coord % max);
+	    } else if (coord > max) {
+	      return coord % max;
+	    } else {
+	      return coord;
+	    }
+	  },
+
+	  dist (pos1, pos2) {
+	    return Math.sqrt(
+	      Math.pow(pos1[0] - pos2[0], 2) + Math.pow(pos1[1] - pos2[1], 2)
+	    );
+	  },
+	}
+
+	module.exports = Util;
+
+
+/***/ },
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	const Util = __webpack_require__(4);
@@ -237,57 +307,20 @@
 	  return centerDiff < radiusSum;
 	}
 
+	MovingObject.prototype.randomRadius = function(maxX, maxY) {
+	  let radius = Math.random() * 20 + 5;
+	  return radius;
+	}
 
 	module.exports = MovingObject;
 
 
 /***/ },
-/* 4 */
-/***/ function(module, exports) {
-
-	const Util = {
-	  inherits (childClass, ParentClass) {
-	    function Surrogate() {};
-	    Surrogate.prototype = ParentClass.prototype;
-	    childClass.prototype = new Surrogate();
-	    childClass.prototype.constructor = childClass;
-	  },
-
-	  randomVec (length) {
-	  var deg = 2 * Math.PI * Math.random();
-	  return Util.scale([Math.sin(deg), Math.cos(deg)], length);
-	  },
-
-	  scale (vec, m) {
-	    return [vec[0] * m, vec[1] * m];
-	  },
-
-	  wrap (coord, max) {
-	    if (coord < 0) {
-	      return max - (coord % max);
-	    } else if (coord > max) {
-	      return coord % max;
-	    } else {
-	      return coord;
-	    }
-	  },
-
-	  dist (pos1, pos2) {
-	    return Math.sqrt(
-	      Math.pow(pos1[0] - pos2[0], 2) + Math.pow(pos1[1] - pos2[1], 2)
-	    );
-	  },
-	}
-
-	module.exports = Util;
-
-
-/***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	const Game = __webpack_require__(1);
-	const Ship = __webpack_require__(6);
+	const Ship = __webpack_require__(3);
 
 	const GameView = function(game, ctx) {
 	  this.game = game;
@@ -303,12 +336,6 @@
 
 	module.exports = GameView;
 
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	
 
 /***/ }
 /******/ ]);
