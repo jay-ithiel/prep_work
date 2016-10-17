@@ -76,7 +76,7 @@
 
 	Game.DIM_X = 600;
 	Game.DIM_Y = 600;
-	Game.NUM_ASTEROIDS = 5;
+	Game.NUM_ASTEROIDS = 10;
 	Game.BG_COLOR = "#000000";
 
 	Game.prototype.randomPosition = function() {
@@ -128,13 +128,11 @@
 	Game.prototype.checkCollisions = function() {
 	  for (var i = 0; i < this.allObjects.length; i++) {
 	    for (var j = 0; j < this.allObjects.length; j++) {
-	      let asteroid1 = this.allObjects[i];
-	      let asteroid2 = this.allObjects[j];
+	      let object1 = this.allObjects[i];
+	      let object2 = this.allObjects[j];
 
-	      if (asteroid1.id === asteroid2.id) { continue }
-
-	      if (asteroid1.isCollidedWith(asteroid2)) {
-	        const collision = asteroid1.collideWith(asteroid2);
+	      if (object1.isCollidedWith(object2)) {
+	        const collision = object1.collideWith(object2);
 	        if (collision) { return }
 	      }
 	    }
@@ -175,8 +173,9 @@
 	Util.inherits(Asteroid, MovingObject)
 
 	Asteroid.prototype.collideWith = function (otherObject) {
+	  console.log(otherObject);
 	  if (otherObject instanceof Ship) {
-	    Ship.relocate();
+	    otherObject.relocate();
 	  }
 	}
 
@@ -205,6 +204,7 @@
 	Ship.prototype.relocate = function() {
 	  this.pos = this.game.randomPosition();
 	  this.vel = [0,0];
+
 	}
 
 	module.exports = Ship;
@@ -274,7 +274,6 @@
 	MovingObject.prototype.draw = function(ctx) {
 	  ctx.fillStyle = this.color;
 	  ctx.beginPath();
-	debugger
 	  ctx.arc(
 	    this.pos[0],
 	    this.pos[1],

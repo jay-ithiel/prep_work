@@ -11,7 +11,7 @@ function Game() {
 
 Game.DIM_X = 600;
 Game.DIM_Y = 600;
-Game.NUM_ASTEROIDS = 5;
+Game.NUM_ASTEROIDS = 10;
 Game.BG_COLOR = "#000000";
 
 Game.prototype.randomPosition = function() {
@@ -63,13 +63,11 @@ Game.prototype.wrap = function(pos) {
 Game.prototype.checkCollisions = function() {
   for (var i = 0; i < this.allObjects.length; i++) {
     for (var j = 0; j < this.allObjects.length; j++) {
-      let asteroid1 = this.allObjects[i];
-      let asteroid2 = this.allObjects[j];
+      let object1 = this.allObjects[i];
+      let object2 = this.allObjects[j];
 
-      if (asteroid1.id === asteroid2.id) { continue }
-
-      if (asteroid1.isCollidedWith(asteroid2)) {
-        const collision = asteroid1.collideWith(asteroid2);
+      if (object1.isCollidedWith(object2)) {
+        const collision = object1.collideWith(object2);
         if (collision) { return }
       }
     }
