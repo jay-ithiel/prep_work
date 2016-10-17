@@ -208,8 +208,8 @@
 	  let xOffset = impulse[0];
 	  let yOffset = impulse[1];
 
-	  this.pos[0] += xOffset * 3;
-	  this.pos[1] += yOffset * 3;
+	  this.pos[0] += xOffset * 10;
+	  this.pos[1] += yOffset * 10;
 	}
 
 	module.exports = Ship;
@@ -343,9 +343,12 @@
 
 	GameView.KEY_BINDS = {
 	  'w': [0, -1],
+	  ',': [0, -1],
 	  'a': [-1, 0],
 	  's': [0, 1],
-	  'd': [1, 0]
+	  'o': [0, 1],
+	  'd': [1, 0],
+	  'e': [1, 0],
 	};
 
 	GameView.prototype.bindKeyHandlers = function() {

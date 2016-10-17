@@ -22,8 +22,8 @@ Ship.prototype.power = function(impulse) {
   let xOffset = impulse[0];
   let yOffset = impulse[1];
 
-  this.pos[0] += xOffset * 3;
-  this.pos[1] += yOffset * 3;
+  this.pos[0] += xOffset * 10;
+  this.pos[1] += yOffset * 10;
 }
 
 module.exports = Ship;

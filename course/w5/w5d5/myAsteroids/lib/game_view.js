@@ -17,9 +17,12 @@ GameView.prototype.start = function() {
 
 GameView.KEY_BINDS = {
   'w': [0, -1],
+  ',': [0, -1],
   'a': [-1, 0],
   's': [0, 1],
-  'd': [1, 0]
+  'o': [0, 1],
+  'd': [1, 0],
+  'e': [1, 0],
 };
 
 GameView.prototype.bindKeyHandlers = function() {
