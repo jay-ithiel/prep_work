@@ -75,7 +75,7 @@ Game.prototype.step = function() {
   this.checkCollisions();
 }
 
-Game.prototype.remove(asteroid) {
+Game.prototype.remove = function(asteroid) {
   let index = this.asteroids.indexOf(asteroid);
   this.asteroids.splice(index, 1);
 }
