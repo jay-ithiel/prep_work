@@ -59,10 +59,10 @@ Game.prototype.wrap = function(pos) {
 }
 
 Game.prototype.checkCollisions = function() {
-  for (var i = 0; i < allObjects.length; i++) {
-    for (var j = 0; j < allObjects.length; j++) {
-      let asteroid1 = allObjects[i];
-      let asteroid2 = allObjects[j];
+  for (var i = 0; i < this.allObjects.length; i++) {
+    for (var j = 0; j < this.allObjects.length; j++) {
+      let asteroid1 = this.allObjects[i];
+      let asteroid2 = this.allObjects[j];
 
       if (asteroid1.id === asteroid2.id) { continue }
 
@@ -84,8 +84,8 @@ Game.prototype.step = function() {
 }
 
 Game.prototype.remove = function(object) {
-  let index = allObjects.indexOf(object);
-  allObjects.splice(index, 1);
+  let index = this.allObjects.indexOf(object);
+  this.allObjects.splice(index, 1);
 }
 
 module.exports = Game;

@@ -124,10 +124,10 @@
 	}
 
 	Game.prototype.checkCollisions = function() {
-	  for (var i = 0; i < allObjects.length; i++) {
-	    for (var j = 0; j < allObjects.length; j++) {
-	      let asteroid1 = allObjects[i];
-	      let asteroid2 = allObjects[j];
+	  for (var i = 0; i < this.allObjects.length; i++) {
+	    for (var j = 0; j < this.allObjects.length; j++) {
+	      let asteroid1 = this.allObjects[i];
+	      let asteroid2 = this.allObjects[j];
 
 	      if (asteroid1.id === asteroid2.id) { continue }
 
@@ -149,8 +149,8 @@
 	}
 
 	Game.prototype.remove = function(object) {
-	  let index = allObjects.indexOf(object);
-	  allObjects.splice(index, 1);
+	  let index = this.allObjects.indexOf(object);
+	  this.allObjects.splice(index, 1);
 	}
 
 	module.exports = Game;
@@ -166,7 +166,7 @@
 
 	function Asteroid(options = {}) {
 	  options.color = "#505050";
-	  options.radius = new MovingObject.randomRadius();
+	  options.radius = Util.randomRadius();
 	  options.pos = options.pos || options.game.randomPosition();
 	  options.vel = options.vel || Util.randomVec(50);
 	  options.id = options.id;
@@ -245,6 +245,11 @@
 	      Math.pow(pos1[0] - pos2[0], 2) + Math.pow(pos1[1] - pos2[1], 2)
 	    );
 	  },
+
+	  randomRadius (maxX, maxY) {
+	    let radius = Math.random() * 20 + 5;
+	    return radius;
+	  }
 	}
 
 	module.exports = Util;
@@ -305,11 +310,6 @@
 
 	  // if (centerDiff < radiusSum) { debugger }
 	  return centerDiff < radiusSum;
-	}
-
-	MovingObject.prototype.randomRadius = function(maxX, maxY) {
-	  let radius = Math.random() * 20 + 5;
-	  return radius;
 	}
 
 	module.exports = MovingObject;
