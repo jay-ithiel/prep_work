@@ -22,7 +22,7 @@ GameView.KEY_BINDS = {
   's': [0, 1],
   'o': [0, 1],
   'd': [1, 0],
-  'e': [1, 0],
+  'e': [1, 0]
 };
 
 GameView.prototype.bindKeyHandlers = function() {
