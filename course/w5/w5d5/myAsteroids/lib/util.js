@@ -7,8 +7,8 @@ const Util = {
   },
 
   randomVec (length) {
-  var deg = 2 * Math.PI * Math.random();
-  return Util.scale([Math.sin(deg), Math.cos(deg)], length);
+    var deg = 2 * Math.PI * Math.random();
+    return Util.scale([Math.sin(deg), Math.cos(deg)], length);
   },
 
   scale (vec, m) {

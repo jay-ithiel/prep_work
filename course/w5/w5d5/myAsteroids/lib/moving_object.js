@@ -51,5 +51,9 @@ MovingObject.prototype.isCollidedWith = function(otherObject) {
   return centerDiff < radiusSum;
 }
 
+MovingObject.prototype.randomRadius = function(maxX, maxY) {
+  let radius = Math.random() * 20 + 5;
+  return radius;
+}
 
 module.exports = MovingObject;
