@@ -71,9 +71,9 @@
 	  this.addAsteroids();
 	}
 
-	Game.DIM_X = 800;
-	Game.DIM_Y = 800;
-	Game.NUM_ASTEROIDS = 4;
+	Game.DIM_X = 600;
+	Game.DIM_Y = 600;
+	Game.NUM_ASTEROIDS = 5;
 	Game.BG_COLOR = "#000000";
 
 	Game.prototype.randomPosition = function() {
@@ -121,11 +121,11 @@
 	      let asteroid1 = this.asteroids[i];
 	      let asteroid2 = this.asteroids[j];
 
+	      if (asteroid1.id === asteroid2.id) { continue }
+
 	      console.log(asteroid1.isCollidedWith(asteroid2));
 	      console.log(asteroid1.id);
 	      console.log(asteroid2.id);
-
-	      if (asteroid1.id === asteroid2.id) { continue }
 
 	      if (asteroid1.isCollidedWith(asteroid2)) {
 	        const collision = asteroid1.collideWith(asteroid2);
@@ -220,14 +220,15 @@
 	MovingObject.prototype.isCollidedWith = function(otherObject) {
 	  if (this.id === otherObject.id) { return false }
 	  let radiusSum = this.radius + otherObject.radius;
+	  const centerDiff = Util.dist(this.pos, otherObject.pos);
 
-	  let xDiff = this.pos[0] - otherObject.pos[0];
-	  let yDiff = this.pos[1] - otherObject.pos[1];
-	  let xDist = Math.pow(xDiff, 2);
-	  let yDist = Math.pow(yDiff, 2);
-
-	  let centerDiff = Math.sqrt(xDiff + yDiff);
-
+	//   let xDiff = this.pos[0] - otherObject.pos[0];
+	//   let yDiff = this.pos[1] - otherObject.pos[1];
+	//   let xDist = Math.pow(xDiff, 2);
+	//   let yDist = Math.pow(yDiff, 2);
+	//   let diffSum = Math.abs(xDiff + yDiff);
+	//   let centerDiff = Math.sqrt(diffSum);
+	  if (centerDiff < radiusSum) { debugger }
 	  return centerDiff < radiusSum;
 	}
 
@@ -264,7 +265,13 @@
 	    } else {
 	      return coord;
 	    }
-	  }
+	  },
+
+	  dist (pos1, pos2) {
+	    return Math.sqrt(
+	      Math.pow(pos1[0] - pos2[0], 2) + Math.pow(pos1[1] - pos2[1], 2)
+	    );
+	  },
 	}
 
 	module.exports = Util;

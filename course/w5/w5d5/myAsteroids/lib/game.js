@@ -6,9 +6,9 @@ function Game() {
   this.addAsteroids();
 }
 
-Game.DIM_X = 800;
-Game.DIM_Y = 800;
-Game.NUM_ASTEROIDS = 4;
+Game.DIM_X = 600;
+Game.DIM_Y = 600;
+Game.NUM_ASTEROIDS = 5;
 Game.BG_COLOR = "#000000";
 
 Game.prototype.randomPosition = function() {
@@ -56,11 +56,11 @@ Game.prototype.checkCollisions = function() {
       let asteroid1 = this.asteroids[i];
       let asteroid2 = this.asteroids[j];
 
+      if (asteroid1.id === asteroid2.id) { continue }
+
       console.log(asteroid1.isCollidedWith(asteroid2));
       console.log(asteroid1.id);
       console.log(asteroid2.id);
-
-      if (asteroid1.id === asteroid2.id) { continue }
 
       if (asteroid1.isCollidedWith(asteroid2)) {
         const collision = asteroid1.collideWith(asteroid2);
@@ -73,6 +73,11 @@ Game.prototype.checkCollisions = function() {
 Game.prototype.step = function() {
   this.moveObjects();
   this.checkCollisions();
+}
+
+Game.prototype.remove(asteroid) {
+  let index = this.asteroids.indexOf(asteroid);
+  this.asteroids.splice(index, 1);
 }
 
 module.exports = Game;

@@ -19,9 +19,8 @@ Asteroid.prototype.randomRadius = function(maxX, maxY) {
 }
 
 Asteroid.prototype.collideWith = function (otherObject) {
-  if (otherObject instanceof Asteroid) {
-    alert("COLLISION")
-  }
+  this.game.remove(this);
+  this.game.remove(otherObject);
 }
 
 module.exports = Asteroid;

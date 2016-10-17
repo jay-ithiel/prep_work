@@ -38,14 +38,15 @@ MovingObject.prototype.collideWith = function (otherObject) {
 MovingObject.prototype.isCollidedWith = function(otherObject) {
   if (this.id === otherObject.id) { return false }
   let radiusSum = this.radius + otherObject.radius;
+  const centerDiff = Util.dist(this.pos, otherObject.pos);
 
-  let xDiff = this.pos[0] - otherObject.pos[0];
-  let yDiff = this.pos[1] - otherObject.pos[1];
-  let xDist = Math.pow(xDiff, 2);
-  let yDist = Math.pow(yDiff, 2);
-
-  let centerDiff = Math.sqrt(xDiff + yDiff);
-
+//   let xDiff = this.pos[0] - otherObject.pos[0];
+//   let yDiff = this.pos[1] - otherObject.pos[1];
+//   let xDist = Math.pow(xDiff, 2);
+//   let yDist = Math.pow(yDiff, 2);
+//   let diffSum = Math.abs(xDiff + yDiff);
+//   let centerDiff = Math.sqrt(diffSum);
+  if (centerDiff < radiusSum) { debugger }
   return centerDiff < radiusSum;
 }
 
