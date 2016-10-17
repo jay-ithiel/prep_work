@@ -99,7 +99,6 @@
 
 
 	  for (let i = 0; i < this.allObjects.length; i++) {
-	    console.log(i);
 	    this.allObjects[i].draw(ctx);
 	  }
 	}
@@ -173,7 +172,6 @@
 	Util.inherits(Asteroid, MovingObject)
 
 	Asteroid.prototype.collideWith = function (otherObject) {
-	  console.log(otherObject);
 	  if (otherObject instanceof Ship) {
 	    otherObject.relocate();
 	  }
@@ -204,7 +202,14 @@
 	Ship.prototype.relocate = function() {
 	  this.pos = this.game.randomPosition();
 	  this.vel = [0,0];
+	}
 
+	Ship.prototype.power = function(impulse) {
+	  let xOffset = impulse[0];
+	  let yOffset = impulse[1];
+
+	  this.pos[0] += xOffset * 3;
+	  this.pos[1] += yOffset * 3;
 	}
 
 	module.exports = Ship;
@@ -325,13 +330,30 @@
 	const GameView = function(game, ctx) {
 	  this.game = game;
 	  this.ctx = ctx;
+	  this.ship = this.game.ship;
 	}
 
 	GameView.prototype.start = function() {
+	  this.bindKeyHandlers();
 	  setInterval(() => {
 	    this.game.draw(this.ctx);
 	    this.game.step();
 	  }, 150);
+	}
+
+	GameView.KEY_BINDS = {
+	  'w': [0, -1],
+	  'a': [-1, 0],
+	  's': [0, 1],
+	  'd': [1, 0]
+	};
+
+	GameView.prototype.bindKeyHandlers = function() {
+	  const ship = this.ship;
+	  Object.keys(GameView.KEY_BINDS).forEach((k) => {
+	    let offset = GameView.KEY_BINDS[k];
+	    key(k, function () { ship.power(offset) });
+	  });
 	}
 
 	module.exports = GameView;

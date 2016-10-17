@@ -34,7 +34,6 @@ Game.prototype.draw = function(ctx) {
 
 
   for (let i = 0; i < this.allObjects.length; i++) {
-    console.log(i);
     this.allObjects[i].draw(ctx);
   }
 }

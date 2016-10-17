@@ -4,9 +4,11 @@ const Ship = require("./ship");
 const GameView = function(game, ctx) {
   this.game = game;
   this.ctx = ctx;
+  this.ship = this.game.ship;
 }
 
 GameView.prototype.start = function() {
+  this.bindKeyHandlers();
   setInterval(() => {
     this.game.draw(this.ctx);
     this.game.step();
@@ -14,15 +16,18 @@ GameView.prototype.start = function() {
 }
 
 GameView.KEY_BINDS = {
-  'w': [0, 1],
+  'w': [0, -1],
   'a': [-1, 0],
-  's': [0, -1],
+  's': [0, 1],
   'd': [1, 0]
 };
 
-GameView.prototype.bindKeyHandlers = function(key) {
-  let offset = GameView.KEY_BINDS[key];
-  this.game.ship.power(offset);
+GameView.prototype.bindKeyHandlers = function() {
+  const ship = this.ship;
+  Object.keys(GameView.KEY_BINDS).forEach((k) => {
+    let offset = GameView.KEY_BINDS[k];
+    key(k, function () { ship.power(offset) });
+  });
 }
 
 module.exports = GameView;
