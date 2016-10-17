@@ -46,7 +46,8 @@ MovingObject.prototype.isCollidedWith = function(otherObject) {
 //   let yDist = Math.pow(yDiff, 2);
 //   let diffSum = Math.abs(xDiff + yDiff);
 //   let centerDiff = Math.sqrt(diffSum);
-  if (centerDiff < radiusSum) { debugger }
+
+  // if (centerDiff < radiusSum) { debugger }
   return centerDiff < radiusSum;
 }
 
