@@ -6,13 +6,17 @@ function Ship(options = {}) {
   options.color = "#00FF00";
   options.vel = [0,0];
   options.pos = options.game.randomPosition();
+  this.game = options.game;
+
+  MovingObject.call(this, options);
 }
 
 Util.inherits(Ship, MovingObject);
 
 Ship.prototype.relocate = function() {
-  this.pos = options.game.randomPosition();
+  this.pos = this.game.randomPosition();
   this.vel = [0,0];
+  debugger
 }
 
 module.exports = Ship;

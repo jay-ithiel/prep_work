@@ -12,7 +12,7 @@ const MovingObject = function(options) {
 MovingObject.prototype.draw = function(ctx) {
   ctx.fillStyle = this.color;
   ctx.beginPath();
-
+debugger
   ctx.arc(
     this.pos[0],
     this.pos[1],

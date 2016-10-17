@@ -70,8 +70,8 @@
 	function Game() {
 	  this.asteroids = [];
 	  this.ship = new Ship({ game: this });
-
 	  this.addAsteroids();
+	  this.allObjects = this.getAllObjects();
 	}
 
 	Game.DIM_X = 600;
@@ -97,12 +97,14 @@
 	  ctx.fillStyle = Game.BG_COLOR;
 	  ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
 
-	  for (let i = 0; i < this.allObjects.length; i++){
+
+	  for (let i = 0; i < this.allObjects.length; i++) {
+	    console.log(i);
 	    this.allObjects[i].draw(ctx);
 	  }
 	}
 
-	Game.prototype.allObjects = function() {
+	Game.prototype.getAllObjects = function() {
 	  const objects = this.asteroids.concat(this.ship);
 	  return objects;
 	}
@@ -130,10 +132,6 @@
 	      let asteroid2 = this.allObjects[j];
 
 	      if (asteroid1.id === asteroid2.id) { continue }
-
-	      console.log(asteroid1.isCollidedWith(asteroid2));
-	      console.log(asteroid1.id);
-	      console.log(asteroid2.id);
 
 	      if (asteroid1.isCollidedWith(asteroid2)) {
 	        const collision = asteroid1.collideWith(asteroid2);
@@ -197,12 +195,15 @@
 	  options.color = "#00FF00";
 	  options.vel = [0,0];
 	  options.pos = options.game.randomPosition();
+	  this.game = options.game;
+
+	  MovingObject.call(this, options);
 	}
 
 	Util.inherits(Ship, MovingObject);
 
 	Ship.prototype.relocate = function() {
-	  this.pos = options.game.randomPosition();
+	  this.pos = this.game.randomPosition();
 	  this.vel = [0,0];
 	}
 
@@ -273,7 +274,7 @@
 	MovingObject.prototype.draw = function(ctx) {
 	  ctx.fillStyle = this.color;
 	  ctx.beginPath();
-
+	debugger
 	  ctx.arc(
 	    this.pos[0],
 	    this.pos[1],
@@ -329,8 +330,8 @@
 
 	GameView.prototype.start = function() {
 	  setInterval(() => {
-	    this.game.step();
 	    this.game.draw(this.ctx);
+	    this.game.step();
 	  }, 150);
 	}
 

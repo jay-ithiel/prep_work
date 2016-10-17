@@ -15,7 +15,9 @@ function Asteroid(options = {}) {
 Util.inherits(Asteroid, MovingObject)
 
 Asteroid.prototype.collideWith = function (otherObject) {
+  debugger
   if (otherObject instanceof Ship) {
+    debugger
     Ship.relocate();
   }
 }
