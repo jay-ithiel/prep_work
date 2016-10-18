@@ -1,0 +1,46 @@
+.hanoi {
+  margin: 0 auto;
+  width: 617px;
+  display: flex;
+  flex-direction: row;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+  width: 200px;
+  height: 310px;
+  margin: 0 3px;
+}
+
+li {
+  margin: 3px 0;
+  height: 97px;
+  width: 200px;
+  background-color: orange;
+  position: relative;
+}
+
+.group:after{
+  display: block;
+  clear: both;
+  content: "";
+}
+
+.pile {
+  position:absolute;
+  bottom: 0;
+  left:50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+}
+
+.bottom-bar {
+  width: 200px;
+  height: 10px;
+  background-color: black;
+}
+
+ul:hover > .bottom-bar {
+  background-color: green;
+}

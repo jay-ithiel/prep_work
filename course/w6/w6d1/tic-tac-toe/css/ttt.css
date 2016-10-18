@@ -1,0 +1,19 @@
+ul {
+  width: 627px;
+  height: 627px;
+}
+
+li {
+  width: 200px;
+  height: 200px;
+  float: left;
+  background-color: gray;
+  list-style-type: none;
+  border: 3px solid black;
+  font-size: 150px;
+  text-align: center;
+}
+
+li:hover {
+  background-color: yellow;
+}
