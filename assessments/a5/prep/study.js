@@ -10,28 +10,11 @@
 // `Array#find_index`.
 
 function caesarCipher(str, shift) {
-  let ciphedStr = "";
 
-  for (let i = 0; i < str.length; i++) {
-    let currLetter = str[i];
-
-    if (currLetter.match(/[a-z]/i)) {
-      let ciphedLetter = ciphe(str[i], shift);
-      ciphedStr += ciphedLetter;
-    } else {
-      ciphedStr += currLetter;
-    }
-  }
-
-  return ciphedStr;
 }
 
 function ciphe(letter, shift) {
-  const alphabet = "abcdefghijklmnopqrstuvwxyz".split('');
-  let letterIdx = alphabet.indexOf(letter);
-  let newIdx = letterIdx += shift;
-  newIdx > 25 ? newIdx -= 26 : newIdx;
-  return alphabet[newIdx];
+
 }
 
 // console.log(caesarCipher('hello world', 5));
@@ -58,17 +41,7 @@ function ciphe(letter, shift) {
 // # jumble_sort("hello", ['o', 'l', 'h', 'e']) => 'ollhe'
 
 function jumbleSort(str, alphabet) {
-  let jumbled = "";
 
-  for (let i = 0; i < alphabet.length; i++) {
-    let re = new RegExp(`${alphabet[i]}`, 'g');
-    let matched = str.match(re);
-    if (matched === null) { continue }
-    jumbled += matched.join('');
-    str.replace(`${matched[0]}`, '');
-  }
-
-  return jumbled;
 }
 
 // console.log(jumbleSort('hello', ['o', 'l', 'h', 'e']));
@@ -84,17 +57,7 @@ function jumbleSort(str, alphabet) {
 // [0, 1] before [0, 2] (then smaller second elements come first)
 
 Array.prototype.two_sum = function() {
-  let zeros = [];
 
-  for (let i = 0; i < this.length-1; i++) {
-    for (let j = i+1; j < this.length; j++) {
-      let n1 = this[i], n2 = this[j];
-      if (n1 + n2 == 0) { zeros.push([i,j]); }
-    }
-  }
-
-  zeros = zeros.sort((a, b) => { a[0] - b[0] });
-  return zeros;
 }
 
 // let arr = [5, 3, -5, 4, -3, 0, -3, -3, 3];
@@ -120,13 +83,7 @@ String.prototype.subwords = function(dictionary) {
 // default accumulator.
 
 Array.prototype.my_inject = function(callback, accumulator) {
-  if (!accumulator) { accumulator = this.shift(); }
 
-  this.forEach(function(element) {
-    accumulator = callback(accumulator, element);
-  });
-
-  return accumulator;
 }
 
 // let arr = [1,2,3,4,5];
@@ -139,23 +96,10 @@ Array.prototype.my_inject = function(callback, accumulator) {
 // You may wish to use an is_prime? helper method.
 
 function primes(num) {
-  let numPrimes = [];
 
-  for (let n = 2; numPrimes.length < num; n++) {
-    if (isPrime(n)) { numPrimes.push(n) }
-  }
-
-  return numPrimes;
 }
 
 function isPrime(num) {
-  if (num < 2) { return false }
-
-  for (let div = 2; div < num; div++) {
-    if (num % div == 0) { return false }
-  }
-
-  return true;
 }
 
 // console.log(primes(5));
@@ -173,22 +117,6 @@ function isPrime(num) {
 // 3 * 2
 // 2 *
 
-function numFactorials(num) {
-  if (num <= 0) { return [] }
-  let factorials = [1];
-
-  for (var n = 1; factorials.length < num; n++) {
-    factorials.push(factorial(n));
-  }
-
-  return factorials;
-}
-
-function factorial(num) {
-  if (num < 0) { return 'fuck off, infinite loop!' }
-  if (num == 1 || num == 0) { return 1 };
-  return num * factorial(num - 1);
-}
 
 // console.log(numFactorials(4));
 
@@ -205,7 +133,7 @@ Array.prototype.dups = function() {
 
 }
 
-console.log([1, 3, 4, 3, 0, 3, 0].dups());
+// console.log([1, 3, 4, 3, 0, 3, 0].dups());
 
 
 
@@ -229,7 +157,39 @@ console.log([1, 3, 4, 3, 0, 3, 0].dups());
 // Write an Array#merge_sort method; it should not modify the original
 // array.
 
+Array.prototype.mergeSort = function() {
+  if (this.length <= 1) { return this; }
 
+  const middle = Math.floor(this.length / 2);
+  let left = this.slice(0, middle);
+  let right = this.slice(middle);
+
+  return mergeHelper(left.mergeSort(), right.mergeSort());
+}
+
+function mergeHelper(left, right) {
+  let merged = [];
+
+  while (left.length > 0 && right.length > 0) {
+    let leftEl = left[0];
+    let rightEl = right[0];
+
+    // if (leftEl == null || rightEl == null) { break }
+
+    if (leftEl < rightEl) {
+      merged.push(leftEl);
+      left.shift();
+    } else {
+      merged.push(rightEl);
+      right.shift();
+    }
+  }
+
+  return merged.concat(left).concat(right);
+}
+
+let a = [48, 27, 10, 11, 63, 2, -9, 1];
+console.log(a.mergeSort());
 
 
 
