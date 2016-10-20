@@ -142,3 +142,15 @@ Function.prototype.curry = function(numArgs) {
 
 let t = mySum.curry(4);
 console.log(t(5)(30)(20)(1));
+
+Function.prototype.curry = function(numArgs) {
+  const numbers = [];
+  const self = this;
+
+  function _curry(n) {
+    numbers.push(n);
+    if 
+  }
+
+  return _curry;
+}
