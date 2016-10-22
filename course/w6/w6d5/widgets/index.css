@@ -1,0 +1,36 @@
+.tabs {
+  border: 2px solid red;
+  width: 300px;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.active {
+  font-style: italic;
+  font-size: 14px;
+  visibility: visible;
+}
+
+.tab {
+  border-radius: 10px;
+  display: inline-block;
+  font-size: 20px;
+  height: 30px;
+  border: 1px solid black;
+  padding: 3px;
+
+}
+
+.tab:hover {
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+
+.content {
+  visibility: hidden;
+}
