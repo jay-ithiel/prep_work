@@ -1,0 +1,27 @@
+/* PHASE 4: Footer */
+
+.footer {
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  font-size: 14px;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  color: #aaa;
+}
+
+.footer-list {
+  display: flex;
+}
+
+.footer a {
+  padding: 20px 10px;
+  display: block;
+}
+
+.footer h1 {
+  padding: 20px;
+}

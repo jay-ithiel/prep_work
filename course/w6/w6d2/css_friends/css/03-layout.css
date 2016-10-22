@@ -1,0 +1,33 @@
+/* PHASE 3: Layout */
+
+.content {
+  width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  flex: auto;
+
+}
+
+.content-sidebar {
+  min-height: 200px;
+  width: 250px;
+  float: left;
+}
+
+.content-main {
+  min-height: 200px;
+  width: 750px;
+  background-color: yellow;
+  float: left;
+}
+
+.content:before {
+  position: absolute;
+  display: block;
+  content: "";
+  width: 1px;
+  top: 0;
+  bottom: 0;
+  left: 250px;
+  background-color: #aaa;
+}
