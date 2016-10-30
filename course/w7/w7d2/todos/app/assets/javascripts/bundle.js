@@ -21456,10 +21456,14 @@
 	
 	var _root_reducer2 = _interopRequireDefault(_root_reducer);
 	
+	var _master_middleware = __webpack_require__(191);
+	
+	var _master_middleware2 = _interopRequireDefault(_master_middleware);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var configureStore = function configureStore() {
-	  return (0, _redux.createStore)(_root_reducer2.default);
+	  return (0, _redux.createStore)(_root_reducer2.default, _master_middleware2.default);
 	};
 	
 	exports.default = configureStore;
@@ -22460,6 +22464,60 @@
 	    todos: todos
 	  };
 	};
+
+/***/ },
+/* 191 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _redux = __webpack_require__(173);
+	
+	var _todo_middleware = __webpack_require__(192);
+	
+	var _todo_middleware2 = _interopRequireDefault(_todo_middleware);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var MasterMiddleware = (0, _redux.applyMiddleware)(_todo_middleware2.default);
+	
+	exports.default = MasterMiddleware;
+
+/***/ },
+/* 192 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _todo_actions = __webpack_require__(190);
+	
+	var TodoMiddleWare = function TodoMiddleWare(store) {
+	  return function (next) {
+	    return function (action) {
+	      switch (action.type) {
+	        case _todo_actions.REQUEST_TODOS:
+	          console.log('here is where todos will be fetched');
+	          break;
+	
+	        case _todo_actions.RECEIVE_TODOS:
+	          return;
+	
+	        default:
+	          next(action);
+	      }
+	    };
+	  };
+	};
+	
+	exports.default = TodoMiddleWare;
 
 /***/ }
 /******/ ]);
