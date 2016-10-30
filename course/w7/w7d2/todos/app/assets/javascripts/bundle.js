@@ -58,6 +58,10 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
+	var _todo_actions = __webpack_require__(190);
+	
+	var _selector = __webpack_require__(194);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	document.addEventListener("DOMContentLoaded", function () {
@@ -71,6 +75,8 @@
 	  ), rootContent);
 	
 	  window.store = store;
+	  window.allTodos = _selector.allTodos;
+	  window.requestTodos = _todo_actions.requestTodos;
 	});
 
 /***/ },
@@ -22408,7 +22414,7 @@
 	};
 	
 	var TodosReducer = function TodosReducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _defaultState;
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	  var action = arguments[1];
 	
 	  Object.freeze(state);
@@ -22497,18 +22503,25 @@
 	  value: true
 	});
 	
+	var _todo_api_util = __webpack_require__(193);
+	
 	var _todo_actions = __webpack_require__(190);
 	
-	var TodoMiddleWare = function TodoMiddleWare(store) {
+	var TodoMiddleWare = function TodoMiddleWare(_ref) {
+	  var dispatch = _ref.dispatch;
 	  return function (next) {
 	    return function (action) {
+	      var successCallback = function successCallback(data) {
+	        return dispatch((0, _todo_actions.receiveTodos)(data));
+	      };
+	      var errorCallback = function errorCallback(data) {
+	        return console.log("error", data);
+	      };
+	
 	      switch (action.type) {
 	        case _todo_actions.REQUEST_TODOS:
-	          console.log('here is where todos will be fetched');
-	          break;
-	
-	        case _todo_actions.RECEIVE_TODOS:
-	          return;
+	          (0, _todo_api_util.fetchTodos)(successCallback, errorCallback);
+	          return next(action);
 	
 	        default:
 	          next(action);
@@ -22518,6 +22531,40 @@
 	};
 	
 	exports.default = TodoMiddleWare;
+
+/***/ },
+/* 193 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var fetchTodos = exports.fetchTodos = function fetchTodos(success, error) {
+	  $.ajax({
+	    method: "GET",
+	    url: "api/todos",
+	    success: success,
+	    error: error
+	  });
+	};
+
+/***/ },
+/* 194 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var allTodos = exports.allTodos = function allTodos(_ref) {
+	  var todos = _ref.todos;
+	  return Object.keys(todos).map(function (id) {
+	    return todos[id];
+	  });
+	};
 
 /***/ }
 /******/ ]);

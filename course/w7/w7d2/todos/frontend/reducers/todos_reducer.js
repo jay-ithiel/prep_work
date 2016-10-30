@@ -18,7 +18,7 @@ const _defaultState = {
   },
 };
 
-const TodosReducer = (state = _defaultState, action) => {
+const TodosReducer = (state = {}, action) => {
   Object.freeze(state);
 
   switch(action.type) {
