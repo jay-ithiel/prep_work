@@ -8,3 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const store = configureStore();
   ReactDOM.render(<Root store={store}/>, root);
 });
+<<<<<<< HEAD
+=======
+
+
+// On Greeting components
+>>>>>>> 48ff51b0b6db9031bfe49930d6539e49347369bb

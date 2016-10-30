@@ -69,6 +69,11 @@
 	  var store = (0, _store2.default)();
 	  _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 	});
+<<<<<<< HEAD
+=======
+	
+	// On Greeting components
+>>>>>>> 48ff51b0b6db9031bfe49930d6539e49347369bb
 
 /***/ },
 /* 1 */
