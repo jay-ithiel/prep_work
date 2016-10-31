@@ -3,11 +3,11 @@ import { logout } from '../../actions/session_actions';
 import Greeting from './greeting';
 
 const mapStateToProps = state => ({
-  currentUser: state.currentUser
+  currentUser: state.session.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => { dispatch(logout()); }
+  logout: () => dispatch(logout())
 });
 
 export default connect(
