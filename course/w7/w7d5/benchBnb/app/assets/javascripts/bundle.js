@@ -31214,8 +31214,6 @@
 	        });
 	      }
 	
-	      // if (this.props.currentUser) { }
-	
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'session-form' },

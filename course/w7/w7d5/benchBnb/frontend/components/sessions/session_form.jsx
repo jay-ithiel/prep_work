@@ -44,8 +44,6 @@ class SessionForm extends React.Component {
       ));
     }
 
-    // if (this.props.currentUser) { }
-
     return(
       <div className="session-form">
         <h1 className="session-form-header">{sessionFormHeader}</h1>
