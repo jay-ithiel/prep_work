@@ -3,8 +3,12 @@
   <head>
     <meta charset="utf-8">
     <script type="text/javascript">
-      // window.currentUser = {"id":1, "username":"user"}
-      window.currentUser = <%=  %>
+      <% if logged_in? %>
+        window.currentUser = <%= render(
+          "api/users/user.json.jbuilder",
+          user: current_user).html_safe
+        %>
+      <% end %>
     </script>
     <title>Bench BNB</title>
   </head>

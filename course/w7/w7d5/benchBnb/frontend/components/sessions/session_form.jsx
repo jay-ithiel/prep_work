@@ -52,7 +52,7 @@ class SessionForm extends React.Component {
           name="username"
           onChange={this.handleChange} />
         <input
-          type="text"
+          type="password"
           name="password"
           onChange={this.handleChange} />
         <button onClick={this.handleSubmit}>Submit</button>
