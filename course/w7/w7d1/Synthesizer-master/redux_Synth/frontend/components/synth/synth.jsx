@@ -35,8 +35,11 @@ class Synth extends React.Component {
   }
 
   playNotes() {
-    this.notes.forEach((note, index) => {
-      if (this.props.notes.includes(NOTE_NAMES[index])) {
+    const self = this;
+
+    self.notes.forEach((note, index) => {
+      debugger;
+      if (self.props.notes.notes.includes(NOTE_NAMES[index])) {
         note.note.start();
       } else {
         note.note.stop();

@@ -1,3 +1,5 @@
+require 'byebug'
+
 class Player
   attr_reader :name
   def initialize(name)
@@ -15,18 +17,23 @@ class Player
   # end
 
   def prompt
-    puts "Please enter an operation and position: (r 3,4)"
-    puts "Enter 'r' to reveal a tile, and 'f' to flag a tile"
-    print '>'
+    puts "Do you want to reveal or flag a tile?."
+    puts "(Type 'r' to reveal, and 'f' to flag)."
+    print ">> "
+    action = gets.chomp!
+
+    a = action == 'r' ? 'reveal' : 'flag'
+
+    puts "Please enter the position of the tile you want to #{a}."
+    puts "(Type the row, then column separated by a comma. ie: 3,5)"
+    print ">> "
+    pos = gets.chomp!
+
+    user_input = "#{action} #{pos[0]},#{pos[2]}"
   end
 
   def get_move
-    prompt
-    process_input(get_input)
-  end
-
-  def get_input
-    gets.chomp!
+    process_input(prompt)
   end
 
   def valid_play?(string)
