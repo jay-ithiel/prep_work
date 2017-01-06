@@ -321,6 +321,7 @@ end
 # end
 
 def greedy_make_change(target, coins)
+  coins = coins.sort.reverse
   result = []
   return result if target == 0
   largest_coin = coins.shift
@@ -339,6 +340,8 @@ end
 # answer of [10,7,7] (try it in pry).
 #
 def make_better_change(target, coins)
+  coins = coins.sort.reverse
+
   return [] if target <= 0
   return nil if coins.none? { |coin| coin < target }
   best_result = nil
@@ -348,7 +351,7 @@ def make_better_change(target, coins)
       remainder = target - coin
       current_change = [coin]
       best_change_remainder = make_better_change(remainder, coins)
-      
+
       next if best_change_remainder.nil?
       current_change += best_change_remainder
 
