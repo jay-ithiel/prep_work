@@ -9,7 +9,19 @@
 #
 # Difficulty: 3/5
 
+# If you have at least one non-zero coin, return a zero-value coin.
+# Continue until you have no more non-zeroes.
+
 def wonky_coins(n)
+  non = [ n/2, n/3, n/4]
+  zero = 0
+
+  non.each_index do |value|
+    if non[value] == 0
+      non[value] = 0
+    else
+  end
+
   # n/2.floor
   # n/3.floor
   # n/4.floor
@@ -17,6 +29,8 @@ def wonky_coins(n)
   # convert method that takes 'n' and returns [n/2, n/3, n/4]
     # for each '0', increment zero_count by 1
     # for each non-zero, toss it into convert
+
+  return non
 
 
 end

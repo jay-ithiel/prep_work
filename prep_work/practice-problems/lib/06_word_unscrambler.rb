@@ -9,5 +9,5 @@
 # Difficulty: 3/5
 
 def word_unscrambler(str, words)
-  words.select { |word| word.chars.sort == str.chars.sort }
+  
 end
